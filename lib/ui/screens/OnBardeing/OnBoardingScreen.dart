@@ -26,7 +26,7 @@ class OnBoardingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Image.asset(App_icons.onBoarding1),
+            Expanded(child: Image.asset(App_icons.onBoarding1)),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -62,7 +62,7 @@ class OnBoardingScreen extends StatelessWidget {
                       Themes_Switcher(),
                     ],
                   ),
-                  SizedBox(height: 24,),
+                  SizedBox(height: 20,),
                   ElevatedButton(
                       onPressed: (){},
                       child: Text(AppLocalizations.of(context)!.letsStart,

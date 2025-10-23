@@ -1,3 +1,4 @@
+import 'package:pro/routes.dart';
 import 'package:pro/ui/common/AppFormFiled.dart';
 import 'package:pro/ui/common/AppNameText.dart';
 import 'package:pro/ui/common/validators.dart';
@@ -90,6 +91,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           )
                         : Text("sign in"),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't Have Account ? ",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Colors.black
+                        ),),
+                      TextButton(onPressed: (){
+                        Navigator.pushReplacementNamed(context, App_routes.RegisterScreen.name);
+                      },
+                          child: Text("create account")
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
@@ -106,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLoading = true;
     });
-    Appauthprovider provider = Provider.of<Appauthprovider>(
+    AppAuthProvider provider = Provider.of<AppAuthProvider>(
       context,
       listen: false,
     );
@@ -118,6 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("login in successfully")));
+      Navigator.pushReplacementNamed(context, App_routes.Homescreen.name);
     } else {
       handleAuthError(response);
     }
