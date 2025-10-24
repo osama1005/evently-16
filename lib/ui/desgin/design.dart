@@ -19,6 +19,30 @@ class App_icons {
  static const String en = "assets/icons/en.png";
  static const String icon_dark = "assets/icons/icon_dark.png";
  static const String icon_light = "assets/icons/icon_light.png";
+ static const String Sun = "assets/icons/Sun.svg";
+ static const String Vector = "assets/icons/Vector.svg";
+ static const String home = "assets/icons/home.svg";
+ static const String love = "assets/icons/love.svg";
+ static const String map = "assets/icons/map.svg";
+ static const String profile = "assets/icons/profile.svg";
+ static const String home_fill = "assets/icons/home_fill.svg";
+ static const String love_fill = "assets/icons/love_fill.svg";
+ static const String map_fill = "assets/icons/map_fill.svg";
+ static const String profile_fill = "assets/icons/profile_fill.svg";
+
+ static const String birthday = "assets/icons/birthday.png";
+ static const String bookcl = "assets/icons/bookcl.png";
+ static const String eating = "assets/icons/eating.png";
+ static const String eixh = "assets/icons/eixh.png";
+ static const String gamming = "assets/icons/gamming.png";
+ static const String holiday = "assets/icons/holiday.png";
+ static const String sport = "assets/icons/sport.png";
+ static const String work = "assets/icons/work.png";
+ static const String meeting = "assets/icons/meeting.png";
+
+
+
+
 }
 
 class App_them {
