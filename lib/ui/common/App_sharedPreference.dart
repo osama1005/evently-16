@@ -53,6 +53,14 @@ class AppSharedPreferences {
 
   }
 
+  Future<void> onboardingCheck(bool check) async {
+    await _sharedPreferences.setBool("onboarding", check);
+  }
+
+  bool isOnboarding() {
+    return _sharedPreferences.getBool("onboarding") ?? true;
+  }
+
 
 
 }

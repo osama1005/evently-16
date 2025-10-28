@@ -1,4 +1,5 @@
 import 'package:pro/l10n/app_localizations.dart';
+import 'package:pro/routes.dart';
 import 'package:pro/ui/common/AppNameText.dart';
 import 'package:pro/ui/common/Language_switch.dart';
 import 'package:pro/ui/common/Theme_switch.dart';
@@ -32,11 +33,11 @@ class OnBoardingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(AppLocalizations.of(context)!.onBoardingScreenTitle,
+                  Text(AppLocalizations.of(context)!.onBoardingTitle,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   SizedBox(height: 20),
-                  Text(AppLocalizations.of(context)!.onBoardingScreenSubtitle,
+                  Text(AppLocalizations.of(context)!.onBoardingTitle,
                     style: Theme.of(
                       context,
                     ).textTheme.bodyMedium?.copyWith(color: Colors.black),
@@ -64,7 +65,9 @@ class OnBoardingScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20,),
                   ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, App_routes.IntroScreen.name);
+                      },
                       child: Text(AppLocalizations.of(context)!.letsStart,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.white,

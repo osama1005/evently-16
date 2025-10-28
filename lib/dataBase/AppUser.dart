@@ -1,9 +1,9 @@
 class AppUser{
-  String? id
-  ;
+  String? id;
   String? name ;
   String? email ;
   String? phone ;
+  List<String>? favorites;
 
   AppUser({
     this.id, this.name, this.email, this.phone,

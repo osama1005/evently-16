@@ -7,14 +7,15 @@ typedef Validator = String? Function(String?);
 class Appformfiled extends StatefulWidget {
 
   String label ;
-  IconData icon ;
+  IconData? icon ;
   TextInputType keyboardTybe ;
   bool isPassword  ;
   Validator? validator ;
   TextEditingController? controller ;
+  int line ;
 
   Appformfiled({super.key,this.isPassword=false,this.keyboardTybe=TextInputType.text,
-    this.validator,required this.label,required this.icon, this.controller});
+    this.validator,required this.label, this.icon, this.line=1,this.controller});
   @override
   State<Appformfiled> createState() => _AppformfiledState();
 }
@@ -33,6 +34,7 @@ class _AppformfiledState extends State<Appformfiled> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
+        maxLines: widget.line,
         controller: widget.controller,
         style: GoogleFonts.inter(
           fontSize: 16,
@@ -43,7 +45,7 @@ class _AppformfiledState extends State<Appformfiled> {
         keyboardType: widget.keyboardTybe,
             decoration: InputDecoration(
               labelText: widget.label,
-              prefixIcon: Icon(widget.icon),
+              prefixIcon:widget.icon != null ? Icon(widget.icon) : null,
               suffixIcon: widget.isPassword ?
               InkWell(
                 onTap: (){
