@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pro/dataBase/AppUser.dart';
 import 'package:pro/dataBase/UserDao.dart';
+
+import '../../dataBase/Event.dart';
 
 class AppAuthProvider extends ChangeNotifier {
   // save user in memory
@@ -29,6 +32,14 @@ class AppAuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isFavorite(Event event) {
+    return _databaseUser?.favorites?.contains(event.id) ?? false;
+  }
+
+  void updateFavorites(List<String> favorites) async {
+    _databaseUser?.favorites = favorites;
+    notifyListeners();
+  }
   final FirebaseAuth _fbAuthService = FirebaseAuth.instance;
 
   bool isLoggded(){
@@ -40,17 +51,85 @@ class AppAuthProvider extends ChangeNotifier {
 
   }
 
-  ///  دالة التسجيل (Register)
+  static final GoogleSignIn _google = GoogleSignIn.instance;
+
+  static bool _isInitialize = false;
+
+  static Future<void> _intiGoogleSignIn() async {
+    //initialize google signin --> identify app in google
+    if (!_isInitialize) {
+      await _google.initialize(
+        serverClientId:
+        '416790824993-6l0hchenq6q13lqqms4ejfpei21mj7df.apps.googleusercontent.com',
+      );
+      _isInitialize = true;
+    }
+  }
+
+  Future<AuthResponse> signInWithGoogle() async {
+    try {
+      await _intiGoogleSignIn();
+
+
+      GoogleSignInAccount account = await _google.authenticate();
+      final idToken = account.authentication.idToken;
+      final authClient = account.authorizationClient;
+      final auth = await authClient.authorizationForScopes(['email', 'profile']);
+      final accessToken = auth?.accessToken;
+
+      // sign in to firebase
+      final credential = GoogleAuthProvider.credential(
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+
+      final userCredential = await _fbAuthService.signInWithCredential(credential);
+      final fbUser = userCredential.user;
+
+      if (fbUser == null) {
+        return AuthResponse(success: false, failure: AuthFailure.general);
+      }
+
+
+      AppUser? existingUser = await UserDao.getUserById(fbUser.uid);
+
+      if (existingUser == null) {
+
+        AppUser newUser = AppUser(
+          id: fbUser.uid,
+          name: fbUser.displayName ?? '',
+          email: fbUser.email ?? '',
+          phone: fbUser.phoneNumber ?? '',
+
+        );
+
+        await UserDao.addUser(newUser);
+        _databaseUser = newUser;
+      } else {
+        _databaseUser = existingUser;
+      }
+
+
+      _fbAuthUser = fbUser;
+      notifyListeners();
+
+      return AuthResponse(success: true, credential: userCredential, user: _databaseUser);
+
+    } catch (e) {
+      debugPrint("Error in Google Sign-In: $e");
+      return AuthResponse(success: false, failure: AuthFailure.general);
+    }
+  }
+
   Future<AuthResponse> register(
       String email, String password, String name, String phone) async {
     try {
-      // إنشاء حساب جديد
+
       final credential = await _fbAuthService.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // إنشاء مستخدم في Firestore
       AppUser user = AppUser(
         id: credential.user?.uid,
         email: email,

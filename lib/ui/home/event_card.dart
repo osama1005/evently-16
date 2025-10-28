@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pro/dataBase/Event.dart';
 import 'package:pro/extension/context_extension.dart';
+import 'package:pro/extension/date_time_extension.dart';
 import 'package:pro/ui/desgin/design.dart';
 class EventCard extends StatelessWidget {
-  const EventCard({super.key});
+  final Event event ;
+  const EventCard(this.event,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +18,11 @@ class EventCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: context.appColors.primary,width: 1),
-          image: DecorationImage(image:AssetImage(App_icons.sport),
+          image: DecorationImage(
+            image:AssetImage( event.getCategoryImage()),
             fit: BoxFit.cover,
           ),
+
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,14 +35,15 @@ class EventCard extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text("21",style: context.fonts.bodyMedium?.copyWith(
+                  Text("${event.dateTime?.day }"
+                    ,style: context.fonts.bodyMedium?.copyWith(
                     fontFamily:GoogleFonts.inter().fontFamily ,
                     fontWeight: FontWeight.bold,
                     color: context.appColors.primary,
                   ),
 
                   ),
-                  Text("Nov",style: context.fonts.bodyMedium?.copyWith(
+                  Text(event.dateTime?.formatMonth() ??"",style: context.fonts.bodyMedium?.copyWith(
                     fontFamily:GoogleFonts.inter().fontFamily ,
                     fontWeight: FontWeight.bold,
                     color: context.appColors.primary,
@@ -57,7 +63,7 @@ class EventCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(" this is the sport",style: context.fonts.bodyMedium?.copyWith(
+                  Text(event.title ?? "",style: context.fonts.bodyMedium?.copyWith(
                       fontFamily:GoogleFonts.inter().fontFamily ,
                       fontWeight: FontWeight.bold,
                       color: Colors.black)),

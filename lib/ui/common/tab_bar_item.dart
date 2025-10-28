@@ -7,30 +7,38 @@ class TabBarItem extends StatelessWidget {
  final IconData icon ;
  final int index ;
  final int currentIndex ;
+ bool reversedColors = false ;
 
-   const TabBarItem({super.key, required this.title, required this.icon,
-     required this.index, required this.currentIndex});
+    TabBarItem({super.key, required this.title, required this.icon,
+     required this.index, required this.currentIndex,this.reversedColors=false});
 
   @override
   Widget build(BuildContext context) {
+    var backgroundColors = reversedColors ? Colors.white : context.appColors.primary ;
+    var contentColors = reversedColors ? context.appColors.primary:Colors.white ;
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
       margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
       decoration: BoxDecoration(
-        color: currentIndex == index ? Colors.white : Colors.transparent,
-        border: Border.all(color: Colors.white, width: 1),
+        color: currentIndex == index ? contentColors : backgroundColors ,
+        border: Border.all(color: contentColors, width: 1),
         borderRadius: BorderRadius.circular(46),
       ),
       child: Row(
         children: [
-          Icon(icon ,color:currentIndex == index ? context.appColors.primary : Colors.white,
+          Icon(icon ,color:currentIndex == index
+              ?  backgroundColors
+              : contentColors,
+            size:16 ,
           ),
           SizedBox(width: 8),
           Text(
             title,
             style: TextStyle(
               fontFamily: GoogleFonts.inter().fontFamily,
-              color:currentIndex == index ? context.appColors.primary : Colors.white,
+              color:currentIndex == index
+                  ?  backgroundColors
+                  : contentColors,
             ),
           ),
         ],

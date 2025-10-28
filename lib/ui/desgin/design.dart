@@ -29,20 +29,16 @@ class App_icons {
  static const String love_fill = "assets/icons/love_fill.svg";
  static const String map_fill = "assets/icons/map_fill.svg";
  static const String profile_fill = "assets/icons/profile_fill.svg";
+ static const String google = "assets/icons/google.png";
 
- static const String birthday = "assets/icons/birthday.png";
- static const String bookcl = "assets/icons/bookcl.png";
- static const String eating = "assets/icons/eating.png";
- static const String eixh = "assets/icons/eixh.png";
- static const String gamming = "assets/icons/gamming.png";
- static const String holiday = "assets/icons/holiday.png";
- static const String sport = "assets/icons/sport.png";
- static const String work = "assets/icons/work.png";
- static const String meeting = "assets/icons/meeting.png";
-
-
-
-
+ static const String Sport = "assets/icons/Sport.png";
+ static const String Birthday = "assets/icons/Birthday.png";
+ static const String Eating = "assets/icons/Eating.png";
+ static const String Meeting = "assets/icons/Meeting.png";
+ static const String route = "assets/icons/route.png";
+ static const String intro1 = "assets/icons/on-bordaing1.png";
+ static const String intro2 = "assets/icons/on-bordaing2.png";
+ static const String intro3 = "assets/icons/on-bordaing3.png";
 }
 
 class App_them {
